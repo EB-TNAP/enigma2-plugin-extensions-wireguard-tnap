@@ -11,7 +11,8 @@ SECTION = "base"
 PRIORITY = "optional"
 
 # Version and revision
-PV = "4.0"
+# PV includes git commit info to force updates when GitHub changes
+PV = "4.0+git${SRCPV}"
 PR = "r0"
 
 require conf/license/license-gplv2.inc
