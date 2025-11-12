@@ -11,7 +11,7 @@ SECTION = "base"
 PRIORITY = "optional"
 
 # Version and revision
-PV = "3.9"
+PV = "4.0"
 PR = "r0"
 
 require conf/license/license-gplv2.inc

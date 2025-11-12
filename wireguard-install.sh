@@ -1,6 +1,6 @@
 #!/bin/sh
 # WireGuard VPN Complete Installer for TNAP/Enigma2
-# Version: 3.9
+# Version: 4.0
 # URL: https://tnapimages.com/wireguard-install.sh
 #
 # ONE-LINE INSTALL:
@@ -10,7 +10,7 @@
 
 set -e
 
-VERSION="3.9"
+VERSION="4.0"
 WGDIR="/etc/wireguard"
 LOGFILE="/tmp/wireguard-install.log"
 
