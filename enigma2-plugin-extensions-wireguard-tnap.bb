@@ -20,6 +20,9 @@ inherit allarch
 
 DEPENDS = "python3"
 
+# CRITICAL: Cannot coexist with Firewall plugin (conflicting security models)
+RCONFLICTS:${PN} = "enigma2-plugin-security-firewall"
+
 # Core dependencies (required)
 RDEPENDS:${PN} = "python3-core wireguard-tools"
 

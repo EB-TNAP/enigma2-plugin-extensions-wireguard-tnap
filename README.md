@@ -2,6 +2,18 @@
 
 Self-hosted WireGuard VPN server plugin for Enigma2 satellite receivers. Transform your receiver into a secure VPN gateway for remote access.
 
+## ⚠️ IMPORTANT: Mutual Exclusivity
+
+**This plugin CANNOT be installed alongside the Firewall Security plugin.**
+
+Both plugins manage iptables firewall rules but use **incompatible security models**:
+- **WireGuard Plugin**: VPN-only access (internet blocked)
+- **Firewall Plugin**: Selective internet access (whitelist-based)
+
+Installing both simultaneously will cause connection failures and security conflicts.
+
+**You must choose ONE approach.** See [Which Plugin Should I Use?](#which-plugin-should-i-use) below.
+
 ## Features
 
 - **One-Click Installation**: Automated WireGuard server setup
@@ -25,6 +37,23 @@ WireGuard is a modern, high-performance VPN protocol that:
 - **Secure Streaming**: Watch your satellite TV remotely over encrypted tunnel
 - **IoT Gateway**: Secure access to home automation devices
 - **Privacy**: Encrypt all traffic when on public WiFi
+
+## Which Plugin Should I Use?
+
+### Use WireGuard Plugin if:
+- ✅ You want VPN-only remote access
+- ✅ You prefer zero internet exposure
+- ✅ You access receiver only via VPN tunnel
+- ✅ You want simple "connect via VPN" experience
+- ✅ **RECOMMENDED for most users** (better security)
+
+### Use Firewall Plugin if:
+- ✅ You need selective internet access (whitelist specific IPs)
+- ✅ You want to allow certain remote IPs direct access
+- ✅ You need attack monitoring and logging
+- ✅ Your receiver must be internet-facing
+
+**Cannot decide?** Choose **WireGuard** - it's more secure and easier to use.
 
 ## Installation
 

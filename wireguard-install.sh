@@ -767,6 +767,38 @@ main() {
     banner
     log "=== WireGuard VPN Installation Started ==="
 
+    # CRITICAL: Check for conflicting Firewall plugin
+    if [ -f /etc/init.d/firewall ] && /etc/init.d/firewall status 2>/dev/null | grep -q "policy DROP"; then
+        echo ""
+        echo "================================================================"
+        error "TNAP Firewall plugin detected and active!"
+        echo ""
+        echo "================================================================"
+        echo "CONFLICT: Cannot install WireGuard alongside Firewall plugin"
+        echo "================================================================"
+        echo ""
+        echo "These plugins have INCOMPATIBLE security models:"
+        echo ""
+        echo "  Firewall Plugin: Selective internet access (whitelist-based)"
+        echo "  WireGuard Plugin: VPN-only access (internet blocked)"
+        echo ""
+        echo "Installing both causes connection issues and security conflicts!"
+        echo ""
+        echo "Choose ONE approach:"
+        echo ""
+        echo "  KEEP FIREWALL: Cancel this WireGuard installation"
+        echo ""
+        echo "  KEEP WIREGUARD: Remove Firewall plugin first:"
+        echo "    - Menu > Plugins > Remove Firewall Plugin"
+        echo "    OR: opkg remove enigma2-plugin-security-firewall"
+        echo "    Then re-run this WireGuard installer"
+        echo ""
+        echo "================================================================"
+        echo "Installation ABORTED to prevent conflicts"
+        echo "================================================================"
+        exit 1
+    fi
+
     check_requirements
     check_internet
     install_wireguard_packages
