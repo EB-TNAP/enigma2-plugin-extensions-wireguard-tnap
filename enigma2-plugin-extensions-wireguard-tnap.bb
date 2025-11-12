@@ -47,27 +47,26 @@ RRECOMMENDS:${PN} = " \
 # Conflicts with paid WireGuard plugins and Firewall plugin (both provide port protection)
 RCONFLICTS:${PN} = "enigma2-plugin-extensions-wireguard enigma2-plugin-security-firewall"
 
-SRC_URI = " \
-    file://plugin.py \
-    file://__init__.py \
-    file://wireguard-install.sh \
-    file://wireguard-uninstall.sh \
-    file://wireguard-post-restore.sh \
-"
+# Source location: GitHub repository for direct building
+# This allows building directly from the GitHub repo without additional file: URIs
+# For local builds, comment out SRCREV and use file:// URIs instead
+SRC_URI = "git://github.com/EB-TNAP/enigma2-plugin-extensions-wireguard-tnap.git;protocol=https;branch=main"
+SRCREV = "${AUTOREV}"
 
-S = "${WORKDIR}"
+S = "${WORKDIR}/git"
 
 do_install() {
     # Install plugin files
     install -d ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP
-    install -m 0644 ${WORKDIR}/plugin.py ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
-    install -m 0644 ${WORKDIR}/__init__.py ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
-    install -m 0755 ${WORKDIR}/wireguard-install.sh ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
-    install -m 0755 ${WORKDIR}/wireguard-uninstall.sh ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
+    install -m 0644 ${S}/plugin.py ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
+    install -m 0644 ${S}/__init__.py ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
+    install -m 0755 ${S}/wireguard-install.sh ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
+    install -m 0755 ${S}/wireguard-uninstall.sh ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
+    install -m 0755 ${S}/wireguard-backup-helper.sh ${D}${libdir}/enigma2/python/Plugins/Extensions/WireGuardTNAP/
 
     # Install post-restore script to /usr/script/ (executed by AutoBackup's /etc/autoinstall)
     install -d ${D}/usr/script
-    install -m 0755 ${WORKDIR}/wireguard-post-restore.sh ${D}/usr/script/
+    install -m 0755 ${S}/wireguard-post-restore.sh ${D}/usr/script/
 }
 
 FILES:${PN} = " \
