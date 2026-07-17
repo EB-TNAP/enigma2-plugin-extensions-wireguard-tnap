@@ -12,7 +12,7 @@ PRIORITY = "optional"
 
 # Version and revision
 # PV includes git commit info to force updates when GitHub changes
-PV = "4.0+git${SRCPV}"
+PV = "5.0+git${SRCPV}"
 PR = "r0"
 
 require conf/license/license-gplv2.inc
@@ -20,9 +20,6 @@ require conf/license/license-gplv2.inc
 inherit allarch
 
 DEPENDS = "python3"
-
-# CRITICAL: Cannot coexist with Firewall plugin (conflicting security models)
-RCONFLICTS:${PN} = "enigma2-plugin-security-firewall"
 
 # Core dependencies (required)
 RDEPENDS:${PN} = "python3-core wireguard-tools"
@@ -45,7 +42,8 @@ RRECOMMENDS:${PN} = " \
     kernel-module-nf-reject-ipv6 \
 "
 
-# Conflicts with paid WireGuard plugins and Firewall plugin (both provide port protection)
+# CRITICAL: Cannot coexist with Firewall plugin (conflicting security models)
+# Also conflicts with paid WireGuard client plugins (both provide port protection)
 RCONFLICTS:${PN} = "enigma2-plugin-extensions-wireguard enigma2-plugin-security-firewall"
 
 # Source location: GitHub repository for direct building
